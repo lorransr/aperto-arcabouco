@@ -7,12 +7,12 @@
 <meta name="description" content="Um ensaio visual sobre o limite de gastos da LC 200/2023 e as despesas discricionárias da União.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@700&family=Spectral:ital,wght@0,400;0,500;1,400&family=Libre+Franklin:wght@500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@700&family=Spectral:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
 <style>
 /* Hallmark · shape: Long Document (scroll essay) · genre: editorial · theme: Newsprint (deal 1/3, seed scrollytelling-essay-estilo-pudding-d956·nosalt·2026-11-12·r0), category palette by request · job: read (essay) · draw: manual
  * hero: headline beside the 100-dot circle on a night band · nav: masthead, wordmark and dateline · footer: the manifesto and the sources on the closing night band · imagery: none, charts carry it · signature: the 100-dot budget circle, pinned, coloured by the group the text names, zooming into the free edge
  * axes: light/slab-serif/warm, night bands by redesign · redesign: full · posture: restrained · contrast: pass · fold: pass · v2.0.0 */
-/* Hallmark · pre-emit critique: P3 H3 E2 S3 R2 V3 · weakest: E, the ledger stays a plain table; the night bands open and close the page so the dots glow and the paper middle reads as the evidence */
+/* Hallmark · pre-emit critique: P3 H3 E2 S3 R2 V3 · weakest: E, the night bands open and close the page so the dots glow and the paper middle reads as the evidence */
 /* waive 26b: no control on the page can be disabled · answered 58: a long-form essay the user asked for, one step per screen keeps each screen under 80 words */
 @import url("./tokens.css");
 @import url("./base.css");
@@ -40,8 +40,6 @@ section.night { padding-block: 0; }
 .night mark { color: var(--night-ink); background: color-mix(in oklab, var(--mk) 38%, transparent); }
 .night .m-ring { --mk: var(--night-ink); border-color: var(--night-ink); background: none; }
 
-.rule--double { box-sizing: content-box; height: 2px; border: 0; margin: 0; border-block: var(--rule-hair) solid var(--color-rule-2); }
-.agate { font: 500 1em/1 var(--font-outlier); font-variant-numeric: tabular-nums; }
 .meta { font: 500 var(--text-sm)/1.4 var(--font-body); color: var(--color-muted); }
 a { color: var(--color-accent); text-decoration-color: var(--color-accent); }
 a:hover { text-decoration-thickness: 2px; }
@@ -130,20 +128,6 @@ mark { color: var(--color-ink); padding: 0 0.15em; border-bottom: 3px solid var(
 /* the swatch is the dot of the group in the circle */
 .listing li[data-g] h3::before { content: ""; display: inline-block; width: 0.72em; height: 0.72em; margin-right: 0.35em; border-radius: 50%; background: var(--g); vertical-align: 0.02em; }
 
-/* table */
-.ledger { width: 100%; border-collapse: collapse; margin-top: var(--space-xl); }
-.ledger th { font: 500 var(--text-sm)/1.3 var(--font-body); color: var(--color-muted); text-align: right; padding: var(--space-xs) var(--space-sm); border-bottom: var(--rule-hair) solid var(--color-rule-2); vertical-align: bottom; }
-.ledger th:first-child, .ledger td:first-child { text-align: left; }
-.ledger td { padding: var(--space-md) var(--space-sm); text-align: right; border-bottom: var(--rule-hair) solid var(--color-rule); font-size: var(--text-lead); }
-.ledger td:first-child { font: 700 var(--text-title)/1 var(--font-display); }
-
-/* box score */
-.score { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: var(--space-2xl); padding-block: var(--space-lg); border-block: 3px double var(--color-rule-2); }
-.score > div { padding-inline: var(--space-lg); }
-.score > div + div { border-left: var(--rule-hair) solid var(--color-rule); }
-.score .figure { font: 700 var(--text-display-s)/1 var(--font-display); letter-spacing: var(--tracking-display); }
-.score p { margin-top: var(--space-xs); max-width: 36ch; }
-
 /* simulator */
 .well { background: var(--color-paper-2); border-block: var(--rule-hair) solid var(--color-rule); }
 .sim { margin-top: var(--space-xl); display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: var(--gap-columns); align-items: center; }
@@ -155,7 +139,8 @@ mark { color: var(--color-ink); padding: 0 0.15em; border-bottom: 3px solid var(
 .sim__out b { font: 700 1.3em/1 var(--font-display); }
 #sim-svg { width: min(100%, 500px); justify-self: center; }
 
-.proposta { padding-block: var(--section-gap-s) var(--space-2xl); }
+/* section.night zeroes the band padding; the proposal band sets its own */
+section.proposta { padding-block: var(--section-gap-s) var(--space-2xl); }
 .proposta h2 { font-size: var(--text-display); }
 .proposta .lead { margin-top: var(--space-md); }
 .proposta .listing li { grid-template-columns: minmax(0, 18rem) minmax(0, 1fr); }
@@ -167,15 +152,14 @@ mark { color: var(--color-ink); padding: 0 0.15em; border-bottom: 3px solid var(
 .ink .meta { color: var(--night-muted); margin-top: var(--space-xl); max-width: 70ch; }
 
 @media (max-width: 60rem) {
-  .hero, .scrolly, .duo, .score, .sim { grid-template-columns: minmax(0, 1fr); }
+  .hero, .scrolly, .duo, .sim { grid-template-columns: minmax(0, 1fr); }
   .hero { min-height: 0; }
   .pane-sticky { height: 56svh; background: var(--night); border-bottom: var(--rule-hair) solid var(--night-rule); }
   #big { width: auto; height: 52svh; }
   .steps { gap: 70svh; padding-block: 10svh 40svh; }
   .step { font-size: var(--text-md); }
-  .score > div + div { border-left: 0; border-top: var(--rule-hair) solid var(--color-rule); }
-  .score > div + div { padding-top: var(--space-lg); margin-top: var(--space-lg); }
-  .listing li { grid-template-columns: minmax(0, 1fr); gap: var(--space-xs); }
+  /* .proposta sets its own two columns, so it needs the same override here */
+  .listing li, .proposta .listing li { grid-template-columns: minmax(0, 1fr); gap: var(--space-xs); }
 }
 </style>
 </head>
@@ -235,41 +219,6 @@ mark { color: var(--color-ink); padding: 0 0.15em; border-bottom: 3px solid var(
     </div>
   </div></section>
 
-  <section class="container" aria-labelledby="remendos">
-    <h2 id="remendos">Depois vieram os remendos.</h2>
-    <ul class="listing">
-      <li data-g style="--g: var(--k-prev)"><p class="meta">Dezembro de 2024</p><h3>Salário mínimo</h3><p>O ganho real passa a respeitar a mesma faixa do limite, de 0,6% a 2,5%, de 2025 a 2030. Lei 15.077/2024. Freia o <mark class="m-prev">primeiro motor</mark>.</p></li>
-      <li data-g style="--g: var(--k-outras)"><p class="meta">2025</p><h3>Precatórios</h3><p>As dívidas judiciais da União saem do limite de gastos. Emenda Constitucional 136/2025.</p></li>
-      <li data-g style="--g: var(--k-pess)"><p class="meta">Abril de 2026</p><h3>Pessoal</h3><p>O PLDO 2027 limita o crescimento real da <mark class="m-pess">folha</mark> dos Poderes a 0,6% em 2027.</p></li>
-    </ul>
-    <p class="lead" style="margin-top: var(--space-xl)">Dois remendos freiam obrigatórias: o salário mínimo, que puxa <mark class="m-prev">Previdência</mark>, <mark class="m-bpc">BPC</mark> e <mark class="m-abono">abono</mark>, e a <mark class="m-pess">folha</mark>. Um tira uma despesa de dentro do círculo: os precatórios.</p>
-    <p class="lead" style="margin-top: var(--space-md)">Nenhum mexe nos pisos da <mark class="m-fluxo">saúde</mark> e da educação. Eles continuam a crescer com 100% da receita, enquanto o limite cresce com 70%.</p>
-  </section>
-
-  <hr class="rule--double">
-
-  <section class="container" aria-labelledby="depois">
-    <div class="duo">
-      <h2 id="depois">A conta melhorou. A direção, não.</h2>
-      <p>Com os remendos, o PLDO 2027 já não mostra a borda livre perto de zero. Mostra outra coisa: o gasto total encolhe em relação ao PIB, e a parte obrigatória continua a subir.</p>
-    </div>
-    <table class="ledger">
-      <thead><tr><th scope="col">Ano</th><th scope="col">Despesa primária, % do PIB</th><th scope="col">Obrigatórias, % da despesa</th><th scope="col">Discricionárias do Executivo, % do PIB</th></tr></thead>
-      <tbody>
-        <tr><td>2027</td><td class="agate">18,85</td><td class="agate">90,0</td><td class="agate">1,41</td></tr>
-        <tr><td>2028</td><td class="agate">18,48</td><td class="agate">90,7</td><td class="agate">1,26</td></tr>
-        <tr><td>2029</td><td class="agate">18,21</td><td class="agate">90,6</td><td class="agate">1,28</td></tr>
-        <tr><td>2030</td><td class="agate">17,98</td><td class="agate">90,7</td><td class="agate">1,26</td></tr>
-      </tbody>
-    </table>
-    <p class="meta" style="margin-top: var(--space-xs)">Fonte: PLDO 2027, Anexo IV, via informativo das consultorias de orçamento da Câmara e do Senado. Sem as despesas de repartição de receita.</p>
-    <div class="score">
-      <div><p class="figure">R$ 53,7 bi</p><p>o que o PLOA 2027 diz ser preciso rever em despesas de 2028 a 2030 para caber no limite.</p></div>
-      <div><p class="figure">R$ 9,9 bi</p><p>o que falta para o piso da saúde em 2028 e 2029, fora dessa conta.</p></div>
-    </div>
-    <p class="meta" style="margin-top: var(--space-xs)">Fonte: PLOA 2027, segundo a Gazeta do Povo, 20 de outubro de 2026.</p>
-  </section>
-
   <section class="well" aria-labelledby="conta"><div class="container">
     <div class="duo">
       <h2 id="conta">Faça a conta.</h2>
@@ -308,11 +257,9 @@ mark { color: var(--color-ink); padding: 0 0.15em; border-bottom: 3px solid var(
     <h2 style="font-size: var(--text-title)">Fontes</h2>
     <ol>
       <li><a href="https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp200.htm">Lei Complementar 200/2023</a>, o arcabouço fiscal.</li>
-      <li><a href="https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2024/lei/l15077.htm">Lei 15.077/2024</a>, o limite ao ganho real do salário mínimo.</li>
       <li><a href="https://www2.camara.leg.br/orcamento-da-uniao/estudos/2026/informativo_pldo2027.pdf">Informativo PLDO 2027</a>, consultorias de orçamento da Câmara e do Senado. Fonte das bolinhas de 2027.</li>
       <li><a href="https://www.infomoney.com.br/?p=2834747">InfoMoney, 16 de abril de 2025</a>, sobre o PLDO 2026.</li>
       <li><a href="https://www12.senado.leg.br/orcamento/documentos/estudos/tipos-de-estudos/notas-tecnicas-e-informativos/informativo_pldo-2026.pdf">Informativo PLDO 2026</a>, Senado.</li>
-      <li><a href="https://www.gazetadopovo.com.br/economia/governo-admite-que-tera-de-rever-53-7-bi-em-despesas-para-cumprir-limite-fiscal/">Gazeta do Povo, 20 de outubro de 2026</a>, sobre o PLOA 2027.</li>
       <li><a href="https://sites.google.com/view/asurnasdecidiram">As urnas decidiram</a>, manifesto de 30 de outubro de 2026.</li>
       <li><a href="https://andrelararesende.substack.com/p/eu-acuso-uma-proposta-para-eliminar">Eu acuso: uma proposta para eliminar os juros absurdos</a>, André Lara Resende, 25 de setembro de 2026. Citado pelo diagnóstico, não pela proposta.</li>
     </ol>

@@ -14,7 +14,6 @@
   --color-rule: oklch(68% 0.016 75); --color-rule-2: oklch(34% 0.012 60);
   --color-accent: oklch(44% 0.13 32); --color-accent-ink: oklch(95% 0.012 90); --color-focus: oklch(48% 0.17 32);
   --font-display: "Zilla Slab", ui-serif, Georgia, serif; --font-body: "Spectral", ui-serif, Georgia, serif;
-  --font-outlier: "Libre Franklin", ui-sans-serif, sans-serif;
   --radius-card: 0; --radius-pill: 0; --rule-hair: 1px;
   --shadow-card: none;
   --tracking-display: -0.02em; --display-weight: 700;
