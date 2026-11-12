@@ -1,0 +1,424 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Aperto: por que o arcabouço fiscal espreme o gasto livre</title>
+<meta name="description" content="Um ensaio visual sobre o limite de gastos da LC 200/2023 e as despesas discricionárias da União.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@700&family=Spectral:ital,wght@0,400;0,500;1,400&family=Libre+Franklin:wght@500;700&display=swap" rel="stylesheet">
+<style>
+/* Hallmark · shape: Long Document (scroll essay) · genre: editorial · theme: Newsprint (deal 1/3, seed scrollytelling-essay-estilo-pudding-d956·nosalt·2026-11-12·r0), category palette by request · job: read (essay) · draw: manual
+ * hero: headline beside the 100-dot circle on a night band · nav: masthead, wordmark and dateline · footer: the manifesto and the sources on the closing night band · imagery: none, charts carry it · signature: the 100-dot budget circle, pinned, coloured by the group the text names, zooming into the free edge
+ * axes: light/slab-serif/warm, night bands by redesign · redesign: full · posture: restrained · contrast: pass · fold: pass · v2.0.0 */
+/* Hallmark · pre-emit critique: P3 H3 E2 S3 R2 V3 · weakest: E, the ledger stays a plain table; the night bands open and close the page so the dots glow and the paper middle reads as the evidence */
+/* waive 26b: no control on the page can be disabled · answered 58: a long-form essay the user asked for, one step per screen keeps each screen under 80 words */
+@import url("./tokens.css");
+@import url("./base.css");
+
+:root {
+  --container: 1200px;
+  /* one colour per budget group; the text marks each group in the same colour */
+  --k-prev: oklch(47% 0.14 258); --k-bpc: oklch(63% 0.12 240); --k-abono: oklch(78% 0.08 225);
+  --k-pess: oklch(76% 0.14 82); --k-fluxo: oklch(57% 0.12 160); --k-outras: oklch(74% 0.015 70);
+  --k-disc: oklch(62% 0.2 33); --k-emendas: oklch(50% 0.15 330); --k-fora: oklch(58% 0.02 60);
+  --k-ob: oklch(32% 0.012 60); --k-neutral: oklch(62% 0.012 70); --k-new: oklch(17% 0.012 60);
+  --night: oklch(19% 0.014 60); --night-2: oklch(24% 0.014 60); --night-ink: oklch(94% 0.011 92);
+  --night-muted: oklch(74% 0.012 80); --night-rule: oklch(38% 0.012 60);
+  --k-juros: oklch(88% 0.16 102);
+  --k-prev-night: oklch(64% 0.15 258); --k-bpc-night: oklch(72% 0.11 240); --k-abono-night: oklch(84% 0.07 225); --k-fluxo-night: oklch(68% 0.13 160); --k-emendas-night: oklch(64% 0.17 330); --k-fora-night: oklch(62% 0.02 60); --k-ob-night: oklch(88% 0.012 85); --k-neutral-night: oklch(50% 0.012 70);
+}
+/* night bands: the same groups, lifted so they read on the dark ground */
+.night {
+  background: var(--night); color: var(--night-ink);
+  --k-prev: var(--k-prev-night); --k-bpc: var(--k-bpc-night); --k-abono: var(--k-abono-night); --k-fluxo: var(--k-fluxo-night); --k-emendas: var(--k-emendas-night); --k-fora: var(--k-fora-night); --k-ob: var(--k-ob-night); --k-neutral: var(--k-neutral-night);
+  --color-muted: var(--night-muted); --color-rule: var(--night-rule); --color-rule-2: var(--night-muted);
+}
+section.night { padding-block: 0; }
+.night a:not(.btn) { color: var(--night-ink); text-decoration-color: var(--k-disc); }
+.night mark { color: var(--night-ink); background: color-mix(in oklab, var(--mk) 38%, transparent); }
+.night .m-ring { --mk: var(--night-ink); border-color: var(--night-ink); background: none; }
+
+.rule--double { box-sizing: content-box; height: 2px; border: 0; margin: 0; border-block: var(--rule-hair) solid var(--color-rule-2); }
+.agate { font: 500 1em/1 var(--font-outlier); font-variant-numeric: tabular-nums; }
+.meta { font: 500 var(--text-sm)/1.4 var(--font-body); color: var(--color-muted); }
+a { color: var(--color-accent); text-decoration-color: var(--color-accent); }
+a:hover { text-decoration-thickness: 2px; }
+section { padding-block: var(--section-gap-s); }
+
+/* colour marks: the words that name a group wear its colour */
+mark { color: var(--color-ink); padding: 0 0.15em; border-bottom: 3px solid var(--mk); background: color-mix(in oklab, var(--mk) 24%, transparent); }
+.m-prev { --mk: var(--k-prev); } .m-bpc { --mk: var(--k-bpc); } .m-abono { --mk: var(--k-abono); } .m-pess { --mk: var(--k-pess); }
+.m-fluxo { --mk: var(--k-fluxo); } .m-outras { --mk: var(--k-outras); } .m-disc { --mk: var(--k-disc); } .m-emendas { --mk: var(--k-emendas); }
+.m-fora { --mk: var(--k-fora); } .m-juros { --mk: var(--k-juros); } .m-ob { --mk: var(--k-ob); } .m-new { --mk: var(--k-new); }
+.m-ring { --mk: var(--color-ink); background: none; border: 2px solid var(--color-ink); border-radius: 1em; padding: 0 0.4em; }
+
+/* dots */
+.d { transition: opacity var(--dur-long) var(--ease-out), transform 700ms var(--ease-in-out); }
+.k-prev { fill: var(--k-prev); } .k-bpc { fill: var(--k-bpc); } .k-abono { fill: var(--k-abono); } .k-pess { fill: var(--k-pess); }
+.k-fluxo { fill: var(--k-fluxo); } .k-outras { fill: var(--k-outras); } .k-disc { fill: var(--k-disc); } .k-emendas { fill: var(--k-emendas); }
+.k-fora { fill: var(--k-fora); } .k-juros { fill: var(--k-juros); } .k-ob { fill: var(--k-ob); } .k-neutral { fill: var(--k-neutral); } .k-new { fill: var(--k-new); }
+.d.dim { opacity: 0.14; }
+.d.gone { opacity: 0; }
+.ring { fill: none; stroke: currentColor; stroke-width: 2; transform-origin: 0 0; transition: opacity var(--dur-long) var(--ease-out), transform 900ms var(--ease-in-out); }
+.ghost { fill: none; stroke: var(--color-rule); stroke-width: 1.5; opacity: 0; transition: opacity var(--dur-long) var(--ease-out); }
+#big[data-mode="grow"] .ghost { opacity: 1; }
+/* interest: the primary circle steps aside and the unringed interest cluster appears at the same scale */
+.prim { transition: transform 900ms var(--ease-in-out); }
+#big[data-mode="juros"] .prim { transform: translate(-120px, -20px) scale(0.62); }
+.jur { transform: translate(160px, -20px) scale(0.62); }
+.jur .d { transform-box: fill-box; transform-origin: center; }
+.js .jur .d { opacity: 0; transform: scale(0); transition: opacity 400ms var(--ease-out), transform 500ms var(--ease-out); transition-delay: calc(var(--i) * 18ms + 500ms); }
+.js #big[data-mode="juros"] .jur .d { opacity: 1; transform: none; }
+.pair-lbl { opacity: 0; transition: opacity var(--dur-long) var(--ease-out); }
+#big[data-mode="juros"] .pair-lbl { opacity: 1; transition-delay: 900ms; }
+.lbl { font: 700 22px/1 var(--font-display); fill: currentColor; text-anchor: middle; }
+.lbl-2 { font: 500 15px/1 var(--font-body); fill: var(--color-muted); text-anchor: middle; }
+
+/* masthead */
+.mast { display: flex; justify-content: space-between; align-items: baseline; gap: var(--space-md); padding-block: var(--space-md); }
+.mast__name { font: 700 var(--text-xl)/1 var(--font-display); letter-spacing: var(--tracking-display); color: currentColor; text-decoration: none; }
+.mast { border-bottom: var(--rule-hair) solid var(--night-rule); }
+
+/* hero */
+.hero { min-height: calc(100svh - 80px); display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); align-items: center; gap: var(--gap-columns); padding-block: var(--space-2xl); }
+.hero__text { display: grid; gap: var(--space-xl); }
+.hero h1 { max-width: 14ch; }
+.hero .lead { color: var(--night-muted); }
+.hero h1 { font-size: clamp(3rem, 5.5vw + 1rem, 6rem); }
+.hero figure { margin: 0; display: grid; gap: var(--space-sm); justify-items: center; }
+.hero svg { width: min(100%, 560px); }
+.btn { display: inline-block; padding: var(--space-md) var(--space-lg); font: 700 1rem/1 var(--font-display); background: var(--k-disc); color: var(--color-ink); text-decoration: none; white-space: nowrap; transition: background-color var(--dur-micro) var(--ease-out); }
+.btn:hover { background: color-mix(in oklab, var(--k-disc) 82%, var(--night-ink)); }
+.btn:active { transform: translateY(1px); }
+
+/* the pinned circle */
+.scrolly { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); gap: var(--gap-columns); }
+.pane-sticky { position: sticky; top: 0; align-self: start; height: 100svh; display: grid; place-items: center; z-index: var(--z-sticky); }
+#big { width: min(100%, 78svh); }
+.big-dots .d { transform: translate(0, 0); }
+.js .tiny { opacity: 0; transform: scale(0.25); transition: opacity 500ms var(--ease-out) 450ms, transform 800ms var(--ease-out) 350ms; pointer-events: none; }
+#big[data-mode="zoom"] .ring, #big[data-mode="zoom"] .big-dots .d:not(.k-disc) { opacity: 0; }
+.js #big[data-mode="zoom"] .big-dots .d.k-disc { transform: translate(var(--dx), var(--dy)); opacity: 0; transition: transform 600ms var(--ease-in-out), opacity 300ms var(--ease-out) 450ms; }
+.js #big[data-mode="zoom"] .tiny { opacity: 1; transform: none; }
+#big[data-ring="on"] .ring { stroke-width: 6; animation: breathe 1.6s var(--ease-in-out) 2; transform-origin: 0 0; }
+@keyframes breathe { 50% { transform: scale(1.025); } }
+/* the hero circle blooms from the centre once, on load */
+#hero-svg .d { transform-box: fill-box; transform-origin: center; }
+.js #hero-svg .d { animation: bloom 600ms var(--ease-out) both; animation-delay: calc(var(--i) * 9ms); }
+@keyframes bloom { from { opacity: 0; transform: scale(0); } }
+.steps { display: grid; gap: 75svh; padding-block: 35svh 50svh; }
+.step { max-width: 40ch; padding: var(--space-lg) var(--space-xl); background: var(--night-2); border: var(--rule-hair) solid var(--night-rule); border-top: 4px solid var(--bar, var(--night-ink)); font-size: var(--text-lead); line-height: 1.55; }
+/* each card's top rule is the colour of the group it is about */
+.step[data-step="3"], .step[data-step="7"], .step[data-step="8"], .step[data-step="9"], .step[data-step="10"] { --bar: var(--k-disc); }
+.step[data-step="4"], .step[data-step="5"] { --bar: var(--k-prev); }
+.step[data-step="6"] { --bar: var(--k-fluxo); }
+.step[data-step="11"], .step[data-step="12"] { --bar: var(--k-juros); }
+.step p + p { margin-top: var(--space-sm); }
+.step b { font-weight: 500; color: var(--night-ink); }
+.step .meta { font-size: var(--text-sm); }
+
+/* two-column text */
+.duo { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: var(--gap-columns); align-items: start; }
+.duo > div > p + p { margin-top: var(--space-md); }
+
+/* listings */
+.listing { list-style: none; margin: var(--space-xl) 0 0; padding: 0; border-top: var(--rule-hair) solid var(--color-rule-2); }
+.listing li { display: grid; grid-template-columns: 9rem minmax(0, 12rem) minmax(0, 1fr); gap: var(--space-lg); padding-block: var(--space-md); border-bottom: var(--rule-hair) solid var(--color-rule); }
+.listing h3 { font-size: var(--text-title); }
+/* the swatch is the dot of the group in the circle */
+.listing li[data-g] h3::before { content: ""; display: inline-block; width: 0.72em; height: 0.72em; margin-right: 0.35em; border-radius: 50%; background: var(--g); vertical-align: 0.02em; }
+
+/* table */
+.ledger { width: 100%; border-collapse: collapse; margin-top: var(--space-xl); }
+.ledger th { font: 500 var(--text-sm)/1.3 var(--font-body); color: var(--color-muted); text-align: right; padding: var(--space-xs) var(--space-sm); border-bottom: var(--rule-hair) solid var(--color-rule-2); vertical-align: bottom; }
+.ledger th:first-child, .ledger td:first-child { text-align: left; }
+.ledger td { padding: var(--space-md) var(--space-sm); text-align: right; border-bottom: var(--rule-hair) solid var(--color-rule); font-size: var(--text-lead); }
+.ledger td:first-child { font: 700 var(--text-title)/1 var(--font-display); }
+
+/* box score */
+.score { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: var(--space-2xl); padding-block: var(--space-lg); border-block: 3px double var(--color-rule-2); }
+.score > div { padding-inline: var(--space-lg); }
+.score > div + div { border-left: var(--rule-hair) solid var(--color-rule); }
+.score .figure { font: 700 var(--text-display-s)/1 var(--font-display); letter-spacing: var(--tracking-display); }
+.score p { margin-top: var(--space-xs); max-width: 36ch; }
+
+/* simulator */
+.well { background: var(--color-paper-2); border-block: var(--rule-hair) solid var(--color-rule); }
+.sim { margin-top: var(--space-xl); display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: var(--gap-columns); align-items: center; }
+.sim__controls { display: grid; gap: var(--space-lg); }
+.sim label { display: block; font: 700 var(--text-title)/1.2 var(--font-display); margin-bottom: var(--space-xs); }
+.sim input[type="range"] { width: 100%; accent-color: var(--k-disc); }
+.sim input[type="range"]:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 4px; }
+.sim__out { font-size: var(--text-lead); }
+.sim__out b { font: 700 1.3em/1 var(--font-display); }
+#sim-svg { width: min(100%, 500px); justify-self: center; }
+
+.proposta { padding-block: var(--section-gap-s) var(--space-2xl); }
+.proposta h2 { font-size: var(--text-display); }
+.proposta .lead { margin-top: var(--space-md); }
+.proposta .listing li { grid-template-columns: minmax(0, 18rem) minmax(0, 1fr); }
+
+/* footer */
+.ink { padding-block: var(--space-2xl); border-top: var(--rule-hair) solid var(--night-rule); }
+.ink a { color: var(--night-ink); text-decoration-color: var(--k-disc); }
+.ink ol { margin: var(--space-md) 0 0; padding-left: 1.2em; display: grid; gap: var(--space-xs); max-width: 70ch; }
+.ink .meta { color: var(--night-muted); margin-top: var(--space-xl); max-width: 70ch; }
+
+@media (max-width: 60rem) {
+  .hero, .scrolly, .duo, .score, .sim { grid-template-columns: minmax(0, 1fr); }
+  .hero { min-height: 0; }
+  .pane-sticky { height: 56svh; background: var(--night); border-bottom: var(--rule-hair) solid var(--night-rule); }
+  #big { width: auto; height: 52svh; }
+  .steps { gap: 70svh; padding-block: 10svh 40svh; }
+  .step { font-size: var(--text-md); }
+  .score > div + div { border-left: 0; border-top: var(--rule-hair) solid var(--color-rule); }
+  .score > div + div { padding-top: var(--space-lg); margin-top: var(--space-lg); }
+  .listing li { grid-template-columns: minmax(0, 1fr); gap: var(--space-xs); }
+}
+</style>
+</head>
+<body>
+<header class="night">
+  <div class="container mast">
+    <a class="mast__name" href="#topo">Aperto</a>
+    <p class="meta">12 de novembro de 2026</p>
+  </div>
+</header>
+
+<main id="topo">
+  <section class="night"><div class="container hero">
+    <div class="hero__text">
+      <h1>O orçamento que se aperta sozinho.</h1>
+      <p class="lead">Como o arcabouço fiscal espreme o gasto que o governo escolhe.</p>
+      <p><a class="btn" href="#caixa">Ler a história</a></p>
+    </div>
+    <figure>
+      <svg id="hero-svg" viewBox="-250 -250 500 500" role="img" aria-label="Cem bolinhas: 90 obrigatórias e 10 livres no gasto primário de 2027"><g class="dots"></g></svg>
+      <figcaption class="meta">O gasto primário de 2027 em 100 bolinhas: <mark class="m-ob">90 obrigatórias</mark>, <mark class="m-disc">10 livres</mark>.</figcaption>
+    </figure>
+    <noscript><p class="meta">Os gráficos desta página precisam de JavaScript. O texto e as fontes leem sem ele.</p></noscript>
+  </div></section>
+
+  <section class="night" id="caixa" aria-label="O orçamento de 2027 em cem bolinhas"><div class="container scrolly">
+    <div class="pane-sticky">
+      <svg id="big" viewBox="-280 -322 560 600" role="img" aria-label="Gasto primário da União em 2027, uma bolinha por ponto percentual, colorida pelo grupo de que o texto fala">
+        <text class="lbl" id="lbl" x="0" y="-298">1 bolinha = 1% do gasto de 2027</text>
+        <text class="lbl-2" id="lbl-2" x="0" y="-276"></text>
+        <g class="prim">
+          <circle class="ghost" r="245"/>
+          <circle class="ring" r="245"/>
+          <g class="big-dots"></g>
+        </g>
+        <g class="jur"></g>
+        <g class="pair-lbl">
+          <text class="lbl" x="-120" y="196">18,9% do PIB</text><text class="lbl-2" x="-120" y="220">gasto primário, com limite</text>
+          <text class="lbl" x="160" y="196">8,9% do PIB</text><text class="lbl-2" x="160" y="220">juros, sem limite</text>
+        </g>
+        <g class="tiny"></g>
+      </svg>
+    </div>
+    <div class="steps">
+      <div class="step" data-step="1"><p>Este círculo é todo o gasto primário da União previsto para 2027: <b>R$ 2,76 trilhões</b>. Primário quer dizer tudo, menos os juros da dívida.</p><p>Cada bolinha é 1% desse gasto, uns R$ 27,6 bilhões.</p></div>
+      <div class="step" data-step="2"><p>A <mark class="m-ring">linha em volta</mark> é o limite do arcabouço fiscal, a Lei Complementar 200 de 2023.</p><p>Ela cresce todo ano, mas devagar: 70% do que a receita cresceu acima da inflação. Nunca mais que <b>2,5%</b>, nunca menos que 0,6%.</p></div>
+      <div class="step" data-step="3"><p><mark class="m-ob">90 bolinhas</mark> já têm dono por lei: aposentadorias, salários, benefícios. O governo não escolhe se paga. Só paga.</p><p>Só as <mark class="m-disc">10 bolinhas da borda</mark> são livres. É a despesa discricionária.</p></div>
+      <div class="step" data-step="4"><p>Por dentro das obrigatórias:</p><p><mark class="m-prev">Previdência, 44</mark>, <mark class="m-pess">pessoal, 16</mark>, <mark class="m-fluxo">Bolsa Família e SUS, 14</mark>, <mark class="m-outras">outras, 7</mark>, <mark class="m-bpc">BPC, 5</mark> e <mark class="m-abono">abono e seguro-desemprego, 4</mark>.</p></div>
+      <div class="step" data-step="5"><p>Primeiro motor. <mark class="m-prev">Previdência</mark>, <mark class="m-bpc">BPC</mark> e <mark class="m-abono">abono</mark> seguem o salário mínimo. Juntos, são 53 bolinhas.</p><p>E o número de aposentados cresce todo ano, com limite ou sem limite.</p></div>
+      <div class="step" data-step="6"><p>Segundo motor. Saúde e educação têm piso: um mínimo que segue 100% da receita.</p><p>Esse dinheiro está espalhado no <mark class="m-fluxo">SUS</mark>, nos <mark class="m-pess">salários</mark> de médicos e professores e na <mark class="m-disc">borda livre</mark>. Se a receita sobe 3%, o piso sobe 3%. A <mark class="m-ring">linha</mark> sobe só 2,1%.</p></div>
+      <div class="step" data-step="7"><p>Agora o tempo passa. A <mark class="m-ring">linha</mark> cresce 2,5% ao ano, e o círculo ganha bolinhas novas. Mas as <mark class="m-ob">obrigatórias</mark> crescem 3,5%.</p><p>A cada ano, mais bolinhas <mark class="m-disc">livres</mark> viram obrigatórias. Em <b>2033</b>, só sobram 5 livres. As obrigatórias passam de 95%, e a lei manda travar gastos.</p><p class="meta">A linha fina é o círculo de 2027. Cenário: limite no máximo, obrigatórias 1 ponto acima. No ritmo previsto hoje pelo governo, 0,26 ponto, os 95% chegam em 2048.</p></div>
+      <div class="step" data-step="8"><p>Agora, um zoom nas <mark class="m-disc">10 bolinhas livres</mark>. Abertas, são R$ 275 bilhões, uma bolinha por bilhão.</p><p><mark class="m-emendas">R$ 57 bi</mark> já são emendas parlamentares. <mark class="m-fora">R$ 11 bi</mark> ficam fora do limite. Para o Executivo sobram <mark class="m-disc">R$ 207 bi</mark>.</p></div>
+      <div class="step" data-step="9"><p>É nesses <mark class="m-disc">R$ 207 bilhões</mark> que estão as obras do PAC, a manutenção das universidades federais, as bolsas da CAPES e do CNPq e a fiscalização ambiental.</p></div>
+      <div class="step" data-step="10"><p>Em abril de 2025, o próprio governo projetou essa parte ano a ano, no projeto da LDO de 2026.</p><p>De <mark class="m-disc">R$ 221 bilhões</mark> em 2025, ela caía para <mark class="m-disc">R$ 8,9 bilhões</mark> em 2029. Uma queda de 96%.</p><p class="meta">A projeção supunha a volta dos precatórios ao limite em 2027.</p></div>
+      <div class="step" data-step="11"><p>Até aqui, tudo acontece dentro da <mark class="m-ring">linha</mark>. Mas um gasto fica de fora: os <mark class="m-juros">juros da dívida</mark>.</p><p>Eles não têm teto, e sobem com a Selic, que o Banco Central decide. Na mesma escala, valem 47 bolinhas.</p><p class="meta">Juros pagos em 12 meses até agosto de 2026, segundo o manifesto As urnas decidiram.</p></div>
+      <div class="step" data-step="12"><p>São quase cinco vezes a <mark class="m-disc">borda livre</mark> que o limite espreme.</p><p>Para o economista André Lara Resende, “o cerne do problema fiscal está no serviço da dívida”. Sem os juros, as contas públicas estão quase equilibradas.</p></div>
+    </div>
+  </div></section>
+
+  <section class="container" aria-labelledby="remendos">
+    <h2 id="remendos">Depois vieram os remendos.</h2>
+    <ul class="listing">
+      <li data-g style="--g: var(--k-prev)"><p class="meta">Dezembro de 2024</p><h3>Salário mínimo</h3><p>O ganho real passa a respeitar a mesma faixa do limite, de 0,6% a 2,5%, de 2025 a 2030. Lei 15.077/2024. Freia o <mark class="m-prev">primeiro motor</mark>.</p></li>
+      <li data-g style="--g: var(--k-outras)"><p class="meta">2025</p><h3>Precatórios</h3><p>As dívidas judiciais da União saem do limite de gastos. Emenda Constitucional 136/2025.</p></li>
+      <li data-g style="--g: var(--k-pess)"><p class="meta">Abril de 2026</p><h3>Pessoal</h3><p>O PLDO 2027 limita o crescimento real da <mark class="m-pess">folha</mark> dos Poderes a 0,6% em 2027.</p></li>
+    </ul>
+    <p class="lead" style="margin-top: var(--space-xl)">Dois remendos freiam obrigatórias: o salário mínimo, que puxa <mark class="m-prev">Previdência</mark>, <mark class="m-bpc">BPC</mark> e <mark class="m-abono">abono</mark>, e a <mark class="m-pess">folha</mark>. Um tira uma despesa de dentro do círculo: os precatórios.</p>
+    <p class="lead" style="margin-top: var(--space-md)">Nenhum mexe nos pisos da <mark class="m-fluxo">saúde</mark> e da educação. Eles continuam a crescer com 100% da receita, enquanto o limite cresce com 70%.</p>
+  </section>
+
+  <hr class="rule--double">
+
+  <section class="container" aria-labelledby="depois">
+    <div class="duo">
+      <h2 id="depois">A conta melhorou. A direção, não.</h2>
+      <p>Com os remendos, o PLDO 2027 já não mostra a borda livre perto de zero. Mostra outra coisa: o gasto total encolhe em relação ao PIB, e a parte obrigatória continua a subir.</p>
+    </div>
+    <table class="ledger">
+      <thead><tr><th scope="col">Ano</th><th scope="col">Despesa primária, % do PIB</th><th scope="col">Obrigatórias, % da despesa</th><th scope="col">Discricionárias do Executivo, % do PIB</th></tr></thead>
+      <tbody>
+        <tr><td>2027</td><td class="agate">18,85</td><td class="agate">90,0</td><td class="agate">1,41</td></tr>
+        <tr><td>2028</td><td class="agate">18,48</td><td class="agate">90,7</td><td class="agate">1,26</td></tr>
+        <tr><td>2029</td><td class="agate">18,21</td><td class="agate">90,6</td><td class="agate">1,28</td></tr>
+        <tr><td>2030</td><td class="agate">17,98</td><td class="agate">90,7</td><td class="agate">1,26</td></tr>
+      </tbody>
+    </table>
+    <p class="meta" style="margin-top: var(--space-xs)">Fonte: PLDO 2027, Anexo IV, via informativo das consultorias de orçamento da Câmara e do Senado. Sem as despesas de repartição de receita.</p>
+    <div class="score">
+      <div><p class="figure">R$ 53,7 bi</p><p>o que o PLOA 2027 diz ser preciso rever em despesas de 2028 a 2030 para caber no limite.</p></div>
+      <div><p class="figure">R$ 9,9 bi</p><p>o que falta para o piso da saúde em 2028 e 2029, fora dessa conta.</p></div>
+    </div>
+    <p class="meta" style="margin-top: var(--space-xs)">Fonte: PLOA 2027, segundo a Gazeta do Povo, 20 de outubro de 2026.</p>
+  </section>
+
+  <section class="well" aria-labelledby="conta"><div class="container">
+    <div class="duo">
+      <h2 id="conta">Faça a conta.</h2>
+      <p>Escolha quanto as obrigatórias crescem acima do limite e o ano. Quando as obrigatórias passam de 95% do total, o art. 8º da LC 200 manda travar gastos.</p>
+    </div>
+    <div class="sim">
+      <svg id="sim-svg" viewBox="-250 -250 500 500" role="img" aria-label="Cem bolinhas do gasto primário no ano escolhido"><circle class="ring" r="245"/><g class="dots"></g></svg>
+      <div class="sim__controls">
+        <div><label for="gap">Obrigatórias acima do limite, por ano: <span id="gap-v">0,26</span> ponto</label>
+          <input id="gap" type="range" min="0" max="2" step="0.02" value="0.26"></div>
+        <div><label for="yr">Ano: <span id="yr-v">2040</span></label>
+          <input id="yr" type="range" min="2027" max="2060" step="1" value="2040"></div>
+        <p class="sim__out" id="sim-out" aria-live="polite"></p>
+        <p class="meta">Conta simplificada: parte de 90% obrigatório em 2027 e mantém a diferença constante. O valor inicial, 0,26 ponto, é o ritmo implícito no PLDO 2027 de 2027 a 2030.</p>
+      </div>
+    </div>
+  </div></section>
+
+  <section class="proposta night" aria-labelledby="proposta">
+    <div class="container">
+      <h2 id="proposta">As urnas decidiram.</h2>
+      <p class="lead">Em 30 de outubro de 2026, economistas como Luiz Gonzaga Belluzzo, Lena Lavinas e Ladislau Dowbor lançaram um manifesto por juros menores e por uma nova regra fiscal, aprovada até 22 de dezembro.</p>
+      <ul class="listing">
+        <li data-g style="--g: var(--k-juros)"><h3>Baixar os juros</h3><p>Nenhuma alta da Selic, o centro da meta de inflação de volta a 4,5% e peso real ao pleno emprego. Ataca a <mark class="m-juros">conta de fora do círculo</mark>.</p></li>
+        <li data-g style="--g: var(--k-disc)"><h3>Proteger a borda</h3><p>Tirar do limite o investimento público, os aportes em estatais e o BNDES. É a parte da <mark class="m-disc">borda livre</mark> que mais some quando o círculo aperta.</p></li>
+        <li data-g style="--g: var(--k-fluxo)"><h3>Tirar o segundo motor do círculo</h3><p>Tirar do limite a <mark class="m-fluxo">saúde</mark>, a educação e o <mark class="m-fluxo">Bolsa Família</mark>. Os pisos param de espremer o resto.</p></li>
+        <li data-g style="--g: var(--night-ink)"><h3>Pagar a conta no topo</h3><p>Tributar dividendos, juros sobre capital próprio e aplicações isentas, rever R$ 612,8 bilhões em gastos tributários e acabar com os supersalários.</p></li>
+      </ul>
+      <p style="margin-top: var(--space-xl)"><a class="btn" href="https://sites.google.com/view/asurnasdecidiram">Ler o manifesto e assinar</a></p>
+    </div>
+  </section>
+</main>
+
+<footer class="ink night">
+  <div class="container">
+    <h2 style="font-size: var(--text-title)">Fontes</h2>
+    <ol>
+      <li><a href="https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp200.htm">Lei Complementar 200/2023</a>, o arcabouço fiscal.</li>
+      <li><a href="https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2024/lei/l15077.htm">Lei 15.077/2024</a>, o limite ao ganho real do salário mínimo.</li>
+      <li><a href="https://www2.camara.leg.br/orcamento-da-uniao/estudos/2026/informativo_pldo2027.pdf">Informativo PLDO 2027</a>, consultorias de orçamento da Câmara e do Senado. Fonte das bolinhas de 2027.</li>
+      <li><a href="https://www.infomoney.com.br/?p=2834747">InfoMoney, 16 de abril de 2025</a>, sobre o PLDO 2026.</li>
+      <li><a href="https://www12.senado.leg.br/orcamento/documentos/estudos/tipos-de-estudos/notas-tecnicas-e-informativos/informativo_pldo-2026.pdf">Informativo PLDO 2026</a>, Senado.</li>
+      <li><a href="https://www.gazetadopovo.com.br/economia/governo-admite-que-tera-de-rever-53-7-bi-em-despesas-para-cumprir-limite-fiscal/">Gazeta do Povo, 20 de outubro de 2026</a>, sobre o PLOA 2027.</li>
+      <li><a href="https://sites.google.com/view/asurnasdecidiram">As urnas decidiram</a>, manifesto de 30 de outubro de 2026.</li>
+      <li><a href="https://andrelararesende.substack.com/p/eu-acuso-uma-proposta-para-eliminar">Eu acuso: uma proposta para eliminar os juros absurdos</a>, André Lara Resende, 25 de setembro de 2026. Citado pelo diagnóstico, não pela proposta.</li>
+    </ol>
+    <p class="meta">Inspirado num <a href="https://www.youtube.com/watch?v=-PyS5nHL3oQ">vídeo do Jones</a>. Valores em reais correntes. As bolinhas arredondam cada grupo para o ponto percentual mais próximo. Projeções oficiais mudam a cada ciclo do orçamento.</p>
+  </div>
+</footer>
+
+<script>
+document.documentElement.classList.add('js');
+const NS = 'http://www.w3.org/2000/svg';
+const GA = Math.PI * (3 - Math.sqrt(5));
+const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+// sunflower layout: index 0 at the centre, the last index on the edge
+function makeDots(g, n, R, r) {
+  const c = R / Math.sqrt(n), dots = [];
+  for (let i = 0; i < n; i++) {
+    const rr = c * Math.sqrt(i + 0.5), a = i * GA, x = rr * Math.cos(a), y = rr * Math.sin(a);
+    const el = document.createElementNS(NS, 'circle');
+    el.setAttribute('cx', x.toFixed(1)); el.setAttribute('cy', y.toFixed(1)); el.setAttribute('r', r);
+    el.style.setProperty('--i', i);
+    el.style.setProperty('--dx', (-x).toFixed(1) + 'px'); el.style.setProperty('--dy', (-y).toFixed(1) + 'px');
+    g.append(el); dots.push(el);
+  }
+  return dots;
+}
+const paint = (dots, keyOf) => dots.forEach((d, i) => d.setAttribute('class', 'd ' + keyOf(i)));
+
+// 2027, PLDO 2027 Anexo IV, each group rounded to whole points (largest remainder)
+const GROUPS = [['prev', 44], ['bpc', 5], ['abono', 4], ['pess', 16], ['fluxo', 14], ['outras', 7], ['disc', 10]];
+const CAT = GROUPS.flatMap(([k, n]) => Array(n).fill(k));
+// the 275 R$ 1 bi dots of the free edge: Executivo 207, emendas 57, outside the limit 11
+const TINY = [...Array(207).fill('disc'), ...Array(57).fill('emendas'), ...Array(11).fill('fora')];
+const PROJ = [[2025, 221.2], [2026, 208.3], [2027, 122.2], [2028, 59.5], [2029, 8.9]];
+const share = (gap, t) => Math.min(100, Math.round(90 * Math.pow(1 + gap / 100, t)));
+const ob = (k) => (k === 'disc' ? 'k-disc' : 'k-ob');
+
+// hero
+paint(makeDots(document.querySelector('#hero-svg .dots'), 100, 220, 14), (i) => ob(CAT[i]));
+
+// scrolly
+const big = document.getElementById('big');
+const bigDots = makeDots(big.querySelector('.big-dots'), 120, 22 * Math.sqrt(120), 13);
+const ring = big.querySelector('.ring');
+const tinyDots = makeDots(big.querySelector('.tiny'), 275, 225, 5.6);
+const lbl = document.getElementById('lbl'), lbl2 = document.getElementById('lbl-2');
+let timers = [];
+const play = (frames, ms) => { frames.forEach((f, i) => timers.push(setTimeout(f, still ? 0 : i * ms))); };
+
+const jurDots = makeDots(big.querySelector('.jur'), 47, 22 * Math.sqrt(47), 13);
+paint(jurDots, () => 'k-juros');
+const paintBig = (keyOf) => paint(bigDots, (i) => (i < 100 ? keyOf(i) : 'k-disc gone'));
+const STATES = {
+  1: () => paintBig(() => 'k-neutral'),
+  2: () => { paintBig(() => 'k-neutral'); big.dataset.ring = 'on'; },
+  3: () => paintBig((i) => ob(CAT[i])),
+  4: () => paintBig((i) => 'k-' + CAT[i]),
+  5: () => paintBig((i) => 'k-' + CAT[i] + (['prev', 'bpc', 'abono'].includes(CAT[i]) ? '' : ' dim')),
+  6: () => paintBig((i) => 'k-' + CAT[i] + (['fluxo', 'pess', 'disc'].includes(CAT[i]) ? '' : ' dim')),
+  // dots keep their 2027 value: the limit adds 2.5% a year, mandatory spending 3.5%; the edge keeps what is left
+  7: () => { big.dataset.mode = 'grow'; play([0, 1, 2, 3, 4, 5, 6].map((t) => () => {
+    const n = Math.round(100 * 1.025 ** t), o = Math.round(90 * (1.025 * 1.01) ** t);
+    paint(bigDots, (i) => (i < o ? 'k-ob' : i < n ? 'k-disc' : 'k-disc gone'));
+    ring.style.transform = `scale(${Math.sqrt(n / 100).toFixed(3)})`;
+    lbl.textContent = String(2027 + t); lbl2.textContent = `${n} bolinhas, ${n - o} livres`;
+  }), 1100); },
+  8: () => { big.dataset.mode = 'zoom'; paint(tinyDots, (i) => 'k-' + TINY[i]); },
+  9: () => { big.dataset.mode = 'zoom'; paint(tinyDots, (i) => 'k-' + TINY[i] + (TINY[i] === 'disc' ? '' : ' dim')); },
+  10: () => { big.dataset.mode = 'zoom'; play(PROJ.map(([y, v]) => () => {
+    paint(tinyDots, (i) => 'k-disc' + (i < Math.round(v) ? '' : ' gone'));
+    lbl.textContent = y + ': R$ ' + v.toLocaleString('pt-BR') + ' bi'; lbl2.textContent = 'discricionárias do Executivo, projeção do PLDO 2026';
+  }), 1000); },
+  11: () => { big.dataset.mode = 'juros'; paintBig((i) => ob(CAT[i])); },
+  12: () => { big.dataset.mode = 'juros'; paintBig((i) => ob(CAT[i]) + (CAT[i] === 'disc' ? '' : ' dim')); },
+};
+function setStep(n) {
+  timers.forEach(clearTimeout); timers = [];
+  delete big.dataset.ring; delete big.dataset.mode; ring.style.transform = '';
+  const zoom = n >= 8 && n <= 10;
+  lbl.textContent = zoom ? '1 bolinha = R$ 1 bilhão' : '1 bolinha = 1% do gasto de 2027';
+  lbl2.textContent = zoom ? 'a borda livre de 2027, aberta' : '';
+  if (n >= 8 && n <= 10) paintBig((i) => ob(CAT[i])); // the zoom gathers the ten free dots of 2027
+  STATES[n]();
+}
+setStep(1);
+const io = new IntersectionObserver((es) => es.forEach((e) => {
+  if (e.isIntersecting) setStep(Number(e.target.dataset.step));
+  // on a phone the circle covers the top half, so the trigger band sits below it
+}), { rootMargin: matchMedia('(max-width: 60rem)').matches ? '-72% 0px -18% 0px' : '-45% 0px -45% 0px' });
+document.querySelectorAll('.step').forEach((s) => io.observe(s));
+
+// simulator
+const simDots = makeDots(document.querySelector('#sim-svg .dots'), 100, 220, 14);
+const gap = document.getElementById('gap'), yr = document.getElementById('yr'), out = document.getElementById('sim-out');
+const fmt = (n) => n.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+function sim() {
+  const g = Number(gap.value), y = Number(yr.value), s = share(g, y - 2027);
+  document.getElementById('gap-v').textContent = fmt(g);
+  document.getElementById('yr-v').textContent = y;
+  paint(simDots, (i) => (i < 90 ? 'k-' + CAT[i] : i < s ? 'k-new' : 'k-disc'));
+  const t = g > 0 ? Math.ceil(Math.log(0.95 / 0.9) / Math.log(1 + g / 100)) : Infinity;
+  const when = t === Infinity ? 'Com zero, a borda livre fica parada em 10%.' : `As obrigatórias passam de 95% em <b>${2027 + t}</b>.`;
+  out.innerHTML = `Em ${y}, <mark class="m-new">${s}% obrigatório</mark>, <mark class="m-disc">${100 - s} bolinhas livres</mark>. ${when}`;
+}
+gap.addEventListener('input', sim); yr.addEventListener('input', sim);
+sim();
+</script>
+</body>
+</html>
